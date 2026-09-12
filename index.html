@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Foyez Ahmmed — Biostatistics</title>
+<meta name="description" content="Foyez Ahmmed, PhD candidate in Biostatistics at the University of Kansas Medical Center. Research on ROC methodology, biomarker combination, and biomedical statistics.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23241B33'/%3E%3Ctext x='32' y='42' font-family='Georgia,serif' font-style='italic' font-size='26' fill='%23F0C24B' text-anchor='middle'%3EFA%3C/text%3E%3C/svg%3E">
+<style>
+  :root{
+    --paper:#ffffff;
+    --ink:#15161b;
+    --ink-soft:#4b4d56;
+    --ink-faint:#8a8c94;
+    --line:#e7e4da;
+
+    --plum:#8B2F5E;   --plum-tint:rgba(139,47,94,0.07);
+    --indigo:#3A4CA6; --indigo-tint:rgba(58,76,166,0.07);
+    --teal:#127A6E;   --teal-tint:rgba(18,122,110,0.07);
+    --amber:#C97A1E;  --amber-tint:rgba(201,122,30,0.09);
+    --coral:#C1442C;  --coral-tint:rgba(193,68,44,0.07);
+    --gold:#F0C24B;
+
+    --serif:'Fraunces', Georgia, serif;
+    --sans:'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --measure:640px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{ margin:0; background:var(--paper); color:var(--ink); font-family:var(--sans); font-size:16px; line-height:1.62; -webkit-font-smoothing:antialiased; }
+  a{ color:var(--plum); text-decoration-thickness:1px; text-underline-offset:2px; }
+  a:hover{ color:var(--ink); }
+  a:focus-visible, button:focus-visible{ outline:2px solid var(--teal); outline-offset:3px; }
+  .skip-link{ position:absolute; left:-999px; top:0; z-index:50; }
+  .skip-link:focus{ left:8px; top:8px; background:var(--ink); color:#fff; padding:8px 12px; }
+  img{ max-width:100%; display:block; }
+
+  .wrap{ max-width:1080px; margin:0 auto; padding:0 28px; }
+
+  /* ---------- Top nav ---------- */
+  .topnav{ position:sticky; top:0; z-index:30; background:rgba(255,255,255,0.92); backdrop-filter:saturate(140%) blur(8px); -webkit-backdrop-filter:saturate(140%) blur(8px); border-bottom:1px solid var(--line); }
+  .topnav .wrap{ height:60px; display:flex; align-items:center; justify-content:space-between; gap:24px; }
+  .brand{ font-family:var(--serif); font-style:italic; font-weight:500; font-size:17px; color:var(--ink); text-decoration:none; white-space:nowrap; }
+  .navlinks{ display:flex; align-items:center; gap:22px; overflow-x:auto; scrollbar-width:none; }
+  .navlinks::-webkit-scrollbar{ display:none; }
+  .navlinks a{ color:var(--ink-soft); text-decoration:none; font-size:13.5px; white-space:nowrap; padding:3px 0; border-bottom:1px solid transparent; }
+  .navlinks a:hover, .navlinks a:focus-visible{ color:var(--ink); border-color:var(--teal); }
+  .navlinks a.resume{ color:var(--plum); font-weight:600; }
+
+  /* ---------- Hero (dark, jewel-tone gradient) ---------- */
+  .hero{
+    position:relative; overflow:hidden; text-align:center;
+    background:linear-gradient(135deg, #17122A 0%, #3B1E4E 42%, #7B3350 74%, #A6483B 100%);
+    padding:80px 0 68px;
+  }
+  .hero-curve{ position:absolute; inset:0; width:100%; height:100%; opacity:.55; pointer-events:none; }
+  .hero-inner{ position:relative; z-index:1; }
+  .avatar{
+    width:104px; height:104px; border-radius:50%;
+    border:2px solid var(--gold); background:rgba(255,255,255,0.06);
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--serif); font-style:italic; font-size:34px; color:#fff;
+    margin:0 auto 26px;
+  }
+  h1.name{ font-family:var(--serif); font-weight:700; letter-spacing:-.01em; font-size:clamp(40px,6vw,60px); line-height:1.03; margin:0 0 14px; color:#fff; }
+  .hero-line{ font-size:16.5px; color:rgba(255,255,255,0.72); margin:0 0 4px; }
+  .hero-line a{ color:rgba(255,255,255,0.82); border-bottom:1px solid rgba(255,255,255,0.3); text-decoration:none; }
+  .hero-line a:hover{ color:var(--gold); border-color:var(--gold); }
+  .hero-line.role{ font-family:var(--serif); font-style:italic; font-size:19px; color:#fff; margin-bottom:10px; }
+  .hero-intro{ max-width:560px; margin:22px auto 0; color:rgba(255,255,255,0.78); font-size:16px; }
+
+  .social{ display:flex; justify-content:center; gap:14px; margin-top:28px; flex-wrap:wrap; }
+  .social a{
+    width:38px; height:38px; border-radius:50%; border:1px solid rgba(255,255,255,0.35);
+    display:flex; align-items:center; justify-content:center;
+    color:rgba(255,255,255,0.85); text-decoration:none; background:rgba(255,255,255,0.06);
+    font-size:14px; transition:border-color .15s, color .15s, background .15s;
+  }
+  .social a:hover{ border-color:var(--gold); color:var(--gold); background:rgba(255,255,255,0.1); }
+
+  /* Footer gets the same dark treatment, bookending the page */
+  footer.contact{ position:relative; overflow:hidden; text-align:center; padding:80px 0 90px;
+    background:linear-gradient(135deg, #A6483B 0%, #7B3350 42%, #3B1E4E 74%, #17122A 100%); }
+  footer.contact h2.head{ color:#fff; }
+  footer.contact .eyebrow{ color:rgba(255,255,255,0.65); }
+  footer.contact .eyebrow::before{ background:var(--gold); }
+  footer.contact .hero-intro{ color:rgba(255,255,255,0.8); }
+  footer.contact .cv-link{ color:var(--gold); border-color:var(--gold); }
+  footer.contact .colophon{ color:rgba(255,255,255,0.55); }
+
+  /* ---------- Sections ---------- */
+  section{ position:relative; padding:72px 0; }
+  section[class*="c-"]{ background:var(--sec-tint); }
+  section[class*="c-"]::before{ content:""; position:absolute; top:0; left:0; right:0; height:4px; background:var(--sec); }
+  .c-plum{ --sec:var(--plum); --sec-tint:var(--plum-tint); }
+  .c-indigo{ --sec:var(--indigo); --sec-tint:var(--indigo-tint); }
+  .c-teal{ --sec:var(--teal); --sec-tint:var(--teal-tint); }
+  .c-amber{ --sec:var(--amber); --sec-tint:var(--amber-tint); }
+  .c-coral{ --sec:var(--coral); --sec-tint:var(--coral-tint); }
+
+  .section-head{ margin-bottom:34px; }
+  .eyebrow{ font-family:var(--serif); font-style:italic; color:var(--ink-faint); font-size:14.5px; margin:0 0 8px; }
+  .eyebrow::before{ content:""; display:inline-block; width:7px; height:7px; border-radius:50%; background:var(--sec,var(--plum)); margin-right:9px; vertical-align:middle; }
+  h2.head{ font-family:var(--serif); font-weight:600; font-size:30px; margin:0; letter-spacing:-.005em; }
+
+  /* About + Education */
+  .about-grid{ display:grid; grid-template-columns:1.15fr 1fr; gap:56px; align-items:start; }
+  ul.highlights{ list-style:none; margin:0 0 30px; padding:0; }
+  ul.highlights li{ position:relative; padding:10px 0 10px 24px; font-size:16px; color:var(--ink-soft); border-top:1px solid var(--line); }
+  ul.highlights li:first-child{ border-top:none; }
+  ul.highlights li::before{ content:"—"; position:absolute; left:0; color:var(--sec); }
+  ul.highlights strong{ color:var(--ink); font-weight:600; }
+  .tag-title{ font-size:13.5px; color:var(--ink-faint); margin:0 0 10px; }
+  .tags{ display:flex; flex-wrap:wrap; gap:8px; }
+  .tag{ font-size:13.5px; padding:6px 13px; border:1px solid var(--sec); border-radius:100px; color:var(--ink); background:var(--sec-tint); }
+  .edu-item{ padding:16px 0; border-top:1px solid var(--line); }
+  .edu-item:first-child{ border-top:none; }
+  .edu-degree{ font-weight:600; font-size:15.5px; }
+  .edu-school{ color:var(--ink-soft); font-size:14.5px; margin-top:2px; }
+  .edu-meta{ color:var(--ink-faint); font-size:13.5px; margin-top:4px; }
+
+  /* Skills */
+  .skill-row{ display:grid; grid-template-columns:200px 1fr; gap:20px; padding:16px 0; border-top:1px solid var(--line); align-items:baseline; }
+  .skill-row:first-child{ border-top:none; }
+  .skill-cat{ font-weight:600; font-size:14.5px; color:var(--indigo); }
+
+  /* Experience timeline */
+  .timeline{ border-left:1px solid var(--line); margin-left:4px; }
+  .tl-item{ position:relative; padding:0 0 34px 30px; }
+  .tl-item:last-child{ padding-bottom:0; }
+  .tl-item::before{ content:""; position:absolute; left:-6px; top:5px; width:9px; height:9px; border-radius:50%; background:var(--paper); border:2px solid var(--sec); }
+  .tl-top{ display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap; align-items:baseline; }
+  .tl-title{ font-weight:600; font-size:16.5px; }
+  .tl-org{ color:var(--ink-soft); font-size:15px; margin-top:2px; }
+  .tl-date{ color:var(--ink-faint); font-size:13.5px; white-space:nowrap; }
+  .tl-note{ margin-top:8px; font-size:14.5px; color:var(--ink-soft); max-width:600px; }
+
+  /* Publications */
+  .pubs-note{ font-size:14.5px; color:var(--ink-faint); margin-bottom:26px; max-width:var(--measure); }
+  ol.pubs{ list-style:none; margin:0; padding:0; counter-reset:pub; }
+  ol.pubs li{ counter-increment:pub; display:grid; grid-template-columns:28px 1fr; gap:14px; padding:18px 0; border-top:1px solid var(--line); }
+  ol.pubs li:first-child{ border-top:none; }
+  ol.pubs li::before{ content:counter(pub); color:var(--amber); font-weight:600; font-size:13px; padding-top:2px; }
+  .pub-title{ font-size:15.5px; }
+  .pub-meta{ color:var(--ink-soft); font-size:14px; margin-top:4px; }
+  .pub-journal{ font-style:italic; }
+  .pub-links{ margin-top:8px; display:flex; gap:14px; }
+  .pub-links a{ font-size:13px; font-weight:600; text-decoration:none; border-bottom:1px solid var(--amber); color:var(--amber); }
+
+  /* Research cards */
+  .research-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:22px; }
+  .rcard{ border:1px solid var(--line); border-top:3px solid var(--coral); background:var(--paper); padding:24px; display:flex; flex-direction:column; }
+  .rcard h3{ font-family:var(--serif); font-weight:600; font-size:19px; margin:0 0 4px; }
+  .rcard .role{ font-size:13px; color:var(--coral); font-weight:600; margin-bottom:2px; }
+  .rcard .dates{ font-size:12.5px; color:var(--ink-faint); margin-bottom:14px; }
+  .rcard ul{ margin:0; padding-left:18px; font-size:14px; color:var(--ink-soft); flex:1; }
+  .rcard li{ margin-bottom:8px; }
+  .rcard li:last-child{ margin-bottom:0; }
+
+  /* Open source */
+  .oss-card{ border:1px solid var(--line); border-top:3px solid var(--teal); padding:24px 26px; background:var(--paper); }
+  .oss-card h3{ font-family:var(--serif); font-weight:600; font-size:19px; margin:0 0 8px; color:var(--teal); }
+  .oss-card p{ margin:0; color:var(--ink-soft); font-size:15px; max-width:620px; }
+  .oss-status{ display:inline-block; margin-top:14px; font-size:12.5px; color:var(--teal); border:1px solid var(--teal); border-radius:100px; padding:4px 12px; }
+
+  /* Awards / lists */
+  ul.list-simple{ list-style:none; margin:0; padding:0; }
+  ul.list-simple li{ display:flex; justify-content:space-between; gap:16px; padding:15px 0; border-top:1px solid var(--line); font-size:15.5px; }
+  ul.list-simple li:first-child{ border-top:none; }
+  ul.list-simple .yr{ color:var(--amber); font-weight:600; font-size:13.5px; white-space:nowrap; padding-top:2px; }
+
+  .service-grid{ display:grid; grid-template-columns:1fr 1fr; gap:44px; }
+  .service-grid h3{ font-family:var(--serif); font-weight:600; font-size:17px; margin:0 0 14px; color:var(--plum); }
+  .service-grid ul{ list-style:none; margin:0; padding:0; }
+  .service-grid li{ font-size:14.5px; color:var(--ink-soft); padding:9px 0; border-top:1px solid var(--line); }
+  .service-grid li:first-child{ border-top:none; }
+
+  .cv-link{ display:inline-block; font-size:15px; font-weight:600; border-bottom:1px solid var(--plum); padding-bottom:1px; }
+  .colophon{ margin-top:40px; font-size:12.5px; color:var(--ink-faint); }
+
+  @media (max-width:860px){
+    .about-grid, .service-grid{ grid-template-columns:1fr; gap:32px; }
+    .research-grid{ grid-template-columns:1fr; }
+    .skill-row{ grid-template-columns:1fr; gap:4px; }
+    section{ padding:52px 0; }
+    .hero{ padding:56px 0 48px; }
+  }
+
+  @media print{
+    .topnav{ display:none; }
+    section{ padding:20px 0; }
+    .hero{ padding:10px 0; }
+  }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<nav class="topnav" aria-label="Section navigation">
+  <div class="wrap">
+    <a class="brand" href="#main">Foyez Ahmmed</a>
+    <div class="navlinks">
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#experience">Experience</a>
+      <a href="#publications">Publications</a>
+      <a href="#research">Research</a>
+      <a href="#opensource">Open Source</a>
+      <a href="#awards">Awards</a>
+      <a href="#service">Service</a>
+      <a href="#contact">Contact</a>
+      <a class="resume" href="./CV_Foyez_Ahmmed.pdf" target="_blank" rel="noopener">Resume</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" id="main">
+  <svg class="hero-curve" viewBox="0 0 480 380" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <defs>
+      <linearGradient id="curveGrad" x1="0" y1="1" x2="1" y2="0">
+        <stop offset="0%" stop-color="#33C7B8"/>
+        <stop offset="50%" stop-color="#F0C24B"/>
+        <stop offset="100%" stop-color="#E8654A"/>
+      </linearGradient>
+    </defs>
+    <line x1="20" y1="360" x2="460" y2="360" stroke="rgba(255,255,255,0.25)" stroke-width="1"/>
+    <line x1="20" y1="360" x2="20" y2="10" stroke="rgba(255,255,255,0.25)" stroke-width="1"/>
+    <line x1="20" y1="360" x2="460" y2="10" stroke="rgba(255,255,255,0.25)" stroke-dasharray="3 5" stroke-width="1"/>
+    <path d="M20,360 C60,260 90,150 130,90 C170,45 220,20 460,10" fill="none" stroke="url(#curveGrad)" stroke-width="3.5"/>
+  </svg>
+  <div class="wrap hero-inner">
+    <div class="avatar" aria-hidden="true">FA</div>
+    <h1 class="name">Foyez Ahmmed</h1>
+    <p class="hero-line role">PhD Candidate in Biostatistics</p>
+    <p class="hero-line">Advised by Dr. Leonidas Bantis</p>
+    <p class="hero-line"><a href="https://www.kumc.edu/" target="_blank" rel="noopener">University of Kansas Medical Center</a></p>
+    <p class="hero-intro">I develop statistical methods for combining biomarkers and evaluating diagnostic accuracy, and apply them to biomedical and public health research. Starting September 2026, I'll join the FDA as an ORISE Research Fellow.</p>
+    <div class="social">
+      <a href="mailto:fahmmed@kumc.edu" aria-label="Email" title="Email">✉</a>
+      <a href="tel:+19137106036" aria-label="Phone" title="Phone">☎</a>
+      <a href="https://scholar.google.com/citations?user=HsoJdX0AAAAJ&hl=en" target="_blank" rel="noopener" aria-label="Google Scholar" title="Google Scholar">Sc</a>
+      <a href="https://bd.linkedin.com/in/foyez-ahmmed-91b926201" target="_blank" rel="noopener" aria-label="LinkedIn" title="LinkedIn">in</a>
+      <a href="https://orcid.org/0000-0002-6107-6637" target="_blank" rel="noopener" aria-label="ORCID" title="ORCID">id</a>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <section id="about" class="c-plum">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Who I am</p>
+        <h2 class="head">About</h2>
+      </div>
+      <div class="about-grid">
+        <div>
+          <ul class="highlights">
+            <li><strong>PhD candidate</strong> in Biostatistics at the University of Kansas Medical Center, defending Sep 23, 2026</li>
+            <li>Advised by <strong>Dr. Leonidas Bantis</strong>; dissertation on generalized ROC methodology for combining correlated biomarkers</li>
+            <li>Incoming <strong>ORISE Research Fellow</strong> at the U.S. Food and Drug Administration, starting Sep 2026</li>
+            <li>22 peer-reviewed journal articles spanning cancer biomarkers, maternal &amp; child health, and mental health epidemiology</li>
+            <li>Formerly Assistant Professor and Lecturer in Statistics, Comilla University, Bangladesh</li>
+            <li>Member, American Statistical Association</li>
+          </ul>
+          <p class="tag-title">Research interests</p>
+          <div class="tags">
+            <span class="tag">ROC methodology</span>
+            <span class="tag">Biomarker discovery</span>
+            <span class="tag">Survival analysis</span>
+            <span class="tag">Causal inference</span>
+            <span class="tag">Mixed-effects models</span>
+            <span class="tag">Bayesian statistics</span>
+            <span class="tag">Genomics &amp; proteomics</span>
+            <span class="tag">Clinical trials</span>
+          </div>
+        </div>
+        <div>
+          <p class="tag-title">Education</p>
+          <div class="edu-item">
+            <div class="edu-degree">PhD, Biostatistics</div>
+            <div class="edu-school">University of Kansas Medical Center</div>
+            <div class="edu-meta">Jan 2023 – Sep 2026 (expected)</div>
+          </div>
+          <div class="edu-item">
+            <div class="edu-degree">MS, Biostatistics</div>
+            <div class="edu-school">University of Kansas Medical Center</div>
+            <div class="edu-meta">Jan 2023 – May 2025 (CGPA 4.00/4.00)</div>
+          </div>
+          <div class="edu-item">
+            <div class="edu-degree">MS, Statistics</div>
+            <div class="edu-school">University of Dhaka, Bangladesh</div>
+            <div class="edu-meta">Jan 2016 – Jul 2017 (CGPA 3.87/4.00)</div>
+          </div>
+          <div class="edu-item">
+            <div class="edu-degree">BS, Statistics</div>
+            <div class="edu-school">University of Dhaka, Bangladesh</div>
+            <div class="edu-meta">Jan 2011 – Jul 2015 (CGPA 3.71/4.00)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills" class="c-indigo">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Toolkit</p>
+        <h2 class="head">Skills</h2>
+      </div>
+      <div class="skill-row"><div class="skill-cat">Programming</div><div>R, MATLAB, Python, SQL</div></div>
+      <div class="skill-row"><div class="skill-cat">Statistical software</div><div>SAS, SPSS, Stata, OpenBUGS</div></div>
+      <div class="skill-row"><div class="skill-cat">Writing &amp; reporting</div><div>R Markdown, MATLAB Live Scripts, LaTeX</div></div>
+      <div class="skill-row"><div class="skill-cat">Computing</div><div>High-performance clustering (HPC)</div></div>
+      <div class="skill-row"><div class="skill-cat">Version control</div><div>Git, GitHub</div></div>
+    </div>
+  </section>
+
+  <section id="experience" class="c-teal">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Where I've worked</p>
+        <h2 class="head">Experience</h2>
+      </div>
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-top"><div><div class="tl-title">ORISE Research Fellow</div><div class="tl-org">U.S. Food and Drug Administration</div></div><div class="tl-date">Starting Sep 28, 2026</div></div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-top"><div><div class="tl-title">Graduate Research Assistant</div><div class="tl-org">University of Kansas Medical Center</div></div><div class="tl-date">Jan 2023 – Present</div></div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-top"><div><div class="tl-title">Instructor, Biostatistics Tutoring Lab</div><div class="tl-org">University of Kansas Medical Center</div></div><div class="tl-date">Spring 2025</div></div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-top"><div><div class="tl-title">Assistant Professor in Statistics</div><div class="tl-org">Comilla University, Bangladesh</div></div><div class="tl-date">Jul – Dec 2022</div></div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-top"><div><div class="tl-title">Lecturer in Statistics</div><div class="tl-org">Comilla University, Bangladesh</div></div><div class="tl-date">Jul 2019 – Jun 2022</div></div>
+          <div class="tl-note">Taught Advanced Statistical Inference, Advanced Survival Analysis, Sampling Distribution, Calculus I, Stochastic Processes, and Mathematical Demography.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-top"><div><div class="tl-title">Lecturer in Statistics</div><div class="tl-org">IUBAT, Bangladesh</div></div><div class="tl-date">Jan – Apr 2019</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="publications" class="c-amber">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Selected work</p>
+        <h2 class="head">Publications</h2>
+      </div>
+      <p class="pubs-note">22 peer-reviewed journal articles and 2 conference abstracts in total — full list on <a href="https://scholar.google.com/citations?hl=en&user=HsoJdX0AAAAJ&view_op=list_works&sortby=pubdate" target="_blank" rel="noopener">Google Scholar</a>.</p>
+      <ol class="pubs">
+        <li>
+          <div>
+            <div class="pub-title">Rayamajhi S, Sipes J, Ngala B, et al. Circulating extracellular vesicle protein biomarkers for the early detection of high-grade serous ovarian cancer.</div>
+            <div class="pub-meta"><span class="pub-journal">Molecular &amp; Cellular Proteomics</span>, 25, 101508 (2026)</div>
+          </div>
+        </li>
+        <li>
+          <div>
+            <div class="pub-title">Sipes J, Rayamajhi S, Bantis LE, et al. Spatial transcriptomic profiling of the human fallopian tube epithelium reveals region-specific gene expression patterns.</div>
+            <div class="pub-meta"><span class="pub-journal">Communications Biology</span>, 8, 520 (2025)</div>
+          </div>
+        </li>
+        <li>
+          <div>
+            <div class="pub-title">Sipes J, Rayamajhi S, Bantis LE, et al. Defining the ovarian cancer precancerous landscape through modeling fallopian tube epithelium reprogramming driven by extracellular vesicles.</div>
+            <div class="pub-meta"><span class="pub-journal">Cancer Research Communications</span>, 5(8), 1266–1281 (2025)</div>
+          </div>
+        </li>
+        <li>
+          <div>
+            <div class="pub-title">Pham JM, Elsafy H, Alallaf J, et al. Exploring the significance of subclonal patterns of mismatch repair proteins in endometrial carcinomas.</div>
+            <div class="pub-meta"><span class="pub-journal">Archives of Pathology &amp; Laboratory Medicine</span>, 149(8), 2025. Conference abstract.</div>
+            <div class="pub-links"><a href="https://doi.org/10.5858/arpa.2025-0194-AB" target="_blank" rel="noopener">DOI</a></div>
+          </div>
+        </li>
+        <li>
+          <div>
+            <div class="pub-title">Kader MR, Rahman MM, Bristi PD, Ahmmed F. Change in mental health service utilization from pre- to post-COVID-19 period in the United States.</div>
+            <div class="pub-meta"><span class="pub-journal">Heliyon</span>, 10(22), e40454 (2024)</div>
+          </div>
+        </li>
+        <li>
+          <div>
+            <div class="pub-title">Lee AA, Rayamajhi S, Hu M, et al. MicroRNA and proteomic analyses of plasma extracellular vesicles detect diffuse large B-cell lymphoma.</div>
+            <div class="pub-meta"><span class="pub-journal">Clinical Cancer Research</span>, 30(21), 2024. Conference abstract.</div>
+            <div class="pub-links"><a href="https://doi.org/10.1158/1557-3265.LIQBIOP24-B017" target="_blank" rel="noopener">DOI</a></div>
+          </div>
+        </li>
+        <li>
+          <div>
+            <div class="pub-title">Ahmmed F, Hasan MN, Hossain MF, et al. Association between short birth spacing and child malnutrition in Bangladesh: a propensity score matching approach.</div>
+            <div class="pub-meta"><span class="pub-journal">BMJ Paediatrics Open</span>, 8(1), e002240 (2024)</div>
+          </div>
+        </li>
+        <li>
+          <div>
+            <div class="pub-title">Ahmmed F, Manik MMR. Trends in early initiation of breastfeeding in Bangladesh and a multilevel analysis approach to find its determinants.</div>
+            <div class="pub-meta"><span class="pub-journal">Scientific Reports</span>, 11(1), 1–9 (2021)</div>
+          </div>
+        </li>
+      </ol>
+
+      <div style="margin-top:36px;">
+        <p class="tag-title">Manuscripts in progress</p>
+        <ul class="list-simple">
+          <li><span>Ahmmed F, Bantis LE. Quantifying the complementary value of continuous correlated biomarkers using the overlapping volume of their bivariate densities: a generalized ROC framework on ℝ².</span><span class="yr">Under review</span></li>
+          <li><span>Ahmmed F, Bantis LE. A generalized ROC framework on ℝ² for combining biomarkers using a cost-sensitive Bayes decision rule.</span><span class="yr">In prep for Biometrics</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="research" class="c-coral">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">What I'm building</p>
+        <h2 class="head">Selected research</h2>
+      </div>
+      <div class="research-grid">
+        <div class="rcard">
+          <div class="role">Principal contributor</div>
+          <h3>Generalized ROC Framework for Biomarker Combination</h3>
+          <div class="dates">2023 – Present (dissertation research)</div>
+          <ul>
+            <li>Developing a generalized ROC framework on ℝ² using the overlapping volume of bivariate densities and cost-sensitive Bayes decision rules</li>
+            <li>One manuscript under review at the Journal of Biopharmaceutical Statistics; a second targeting Biometrics</li>
+            <li>Advised by Dr. Leonidas Bantis</li>
+          </ul>
+        </div>
+        <div class="rcard">
+          <div class="role">Collaborator</div>
+          <h3>Extracellular Vesicle Biomarkers in Cancer</h3>
+          <div class="dates">2024 – 2026</div>
+          <ul>
+            <li>Statistical analysis for circulating EV protein biomarkers detecting high-grade serous ovarian cancer early (Molecular &amp; Cellular Proteomics, 2026)</li>
+            <li>MicroRNA and proteomic analysis of plasma EVs for diffuse large B-cell lymphoma detection</li>
+          </ul>
+        </div>
+        <div class="rcard">
+          <div class="role">Collaborator</div>
+          <h3>Fallopian Tube Epithelium &amp; Ovarian Cancer</h3>
+          <div class="dates">2025</div>
+          <ul>
+            <li>Spatial transcriptomic profiling revealing region-specific gene expression in the human fallopian tube epithelium (Communications Biology)</li>
+            <li>Modeling epithelial reprogramming driven by extracellular vesicles to define the ovarian cancer precancerous landscape (Cancer Research Communications)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="opensource" class="c-teal">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Software</p>
+        <h2 class="head">Open source</h2>
+      </div>
+      <div class="oss-card">
+        <h3>OVLROC2</h3>
+        <p>An R package for bivariate overlapping-volume estimation and generalized ROC analysis on ℝ², co-authored with Dr. Leonidas Bantis as part of the dissertation work above.</p>
+        <span class="oss-status">Public release upon manuscript acceptance</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="awards" class="c-amber">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Recognition</p>
+        <h2 class="head">Awards &amp; fellowships</h2>
+      </div>
+      <ul class="list-simple">
+        <li><span>Vice Chancellor Research Award, Comilla University, Bangladesh</span><span class="yr">2023</span></li>
+        <li><span>National Science &amp; Technology (NST) Fellowship, Bangladesh</span><span class="yr">2016</span></li>
+        <li><span>Amar Ekushey Hall Trust Fund merit scholarship (MS), University of Dhaka</span><span class="yr">2016</span></li>
+        <li><span>Amar Ekushey Hall Trust Fund merit scholarship (BS), University of Dhaka</span><span class="yr">2013–2015</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="service" class="c-plum">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Beyond research</p>
+        <h2 class="head">Service &amp; mentoring</h2>
+      </div>
+      <div class="service-grid">
+        <div>
+          <h3>Professional service</h3>
+          <ul>
+            <li>Member, American Statistical Association (2024–Present)</li>
+            <li>Reviewer: Journal of Medical Virology, Heliyon, BMC Digital Health, Journal of Health Population and Nutrition, BMC Public Health, Scientific Reports</li>
+            <li>Syllabus design committee, Dept. of Statistics, Comilla University (2020–2022)</li>
+            <li>Student advisor, "Statistics Week," Comilla University (2020–2022)</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Student research supervised</h3>
+          <ul>
+            <li>Effect of lockdown on university student mental health during COVID-19, 2021</li>
+            <li>Antenatal care visits in Bangladesh and associated factors, 2021</li>
+            <li>Postnatal care and facility delivery in Bangladesh, 2022</li>
+            <li>Overweight, obesity, hypertension and diabetes in Bangladeshi adults, 2022</li>
+            <li>Acute respiratory tract infection among children in Bangladesh, 2022</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="contact" id="contact">
+    <div class="wrap">
+      <p class="eyebrow" style="text-align:center;">Get in touch</p>
+      <h2 class="head">Contact</h2>
+      <p class="hero-intro">Open to conversations about biomarker methodology, ROC-based diagnostic evaluation, and collaborations spanning biostatistics and public health.</p>
+      <div class="social">
+        <a href="mailto:fahmmed@kumc.edu" aria-label="Email" title="Email">✉</a>
+        <a href="tel:+19137106036" aria-label="Phone" title="Phone">☎</a>
+        <a href="https://scholar.google.com/citations?user=HsoJdX0AAAAJ&hl=en" target="_blank" rel="noopener" aria-label="Google Scholar" title="Google Scholar">Sc</a>
+        <a href="https://bd.linkedin.com/in/foyez-ahmmed-91b926201" target="_blank" rel="noopener" aria-label="LinkedIn" title="LinkedIn">in</a>
+        <a href="https://orcid.org/0000-0002-6107-6637" target="_blank" rel="noopener" aria-label="ORCID" title="ORCID">id</a>
+      </div>
+      <p style="margin-top:26px;"><a class="cv-link" href="./CV_Foyez_Ahmmed.pdf" target="_blank" rel="noopener">Download full CV (PDF) ↓</a></p>
+      <p class="colophon">Foyez Ahmmed. University of Kansas Medical Center, Kansas City, KS.</p>
+    </div>
+  </footer>
+
+</main>
+</body>
+</html>
